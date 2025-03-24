@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-rgb: 248, 250, 252;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 248, 250, 252;
+    --background-rgb: 15, 23, 42;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+  }
+  
+  .btn {
+    @apply inline-flex justify-center rounded-button px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary-200 text-secondary-800 hover:bg-secondary-300 focus:ring-secondary-300 dark:bg-secondary-700 dark:text-secondary-100 dark:hover:bg-secondary-600;
+  }
+  
+  .btn-outline {
+    @apply btn border border-secondary-300 text-secondary-800 hover:bg-secondary-50 focus:ring-secondary-300 dark:border-secondary-600 dark:text-secondary-200 dark:hover:bg-secondary-800;
+  }
+  
+  .input {
+    @apply block w-full rounded-md border-secondary-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:border-secondary-600 dark:bg-secondary-800 dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400;
+  }
+  
+  .form-group {
+    @apply mb-4;
+  }
+  
+  .form-label {
+    @apply block text-sm font-medium text-secondary-700 dark:text-secondary-300 mb-1;
+  }
+  
+  .form-error {
+    @apply mt-1 text-sm text-error-600 dark:text-error-400;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-secondary-800 rounded-card shadow-card p-6;
+  }
+  
+  .section {
+    @apply py-12;
+  }
+  
+  .section-title {
+    @apply text-2xl sm:text-3xl font-bold mb-8 text-secondary-900 dark:text-white;
+  }
+}
