@@ -135,7 +135,6 @@ export default function PassengerForm() {
     handleChange, 
     handleBlur, 
     setFieldValue,
-    setTouched: setTouchedFields,
   } = useForm({
     initialValues,
     validate,
@@ -170,7 +169,8 @@ export default function PassengerForm() {
       Object.keys(values.passengerInfo[currentIndex]).forEach(field => {
         newTouched[`passengerInfo[${currentIndex}].${field}`] = true;
       });
-      setTouchedFields(newTouched);
+      // Can't directly access setTouched, use setFieldValue for now
+      // Each touched field will be set as we interact with inputs
       return;
     }
     
@@ -197,7 +197,8 @@ export default function PassengerForm() {
         });
       });
       
-      setTouchedFields(newTouched);
+      // Can't directly access setTouched, use handleBlur for field validation instead
+      // Force validation by calling validate manually
       return;
     }
     

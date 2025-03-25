@@ -111,6 +111,7 @@ export function useForm<T extends Record<string, any>>({
     setFieldValue,
     setFieldError,
     clearErrors,
-    resetForm
+    resetForm,
+    setTouched
   };
 }
