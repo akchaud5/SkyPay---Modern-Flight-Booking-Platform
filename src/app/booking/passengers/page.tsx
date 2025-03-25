@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import PassengerForm from '@/components/booking/PassengerForm';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Passenger Information | SkyPay',
   description: 'Enter passenger details for your flight booking',

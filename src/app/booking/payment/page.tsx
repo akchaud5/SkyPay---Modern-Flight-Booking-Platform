@@ -1,6 +1,8 @@
 import PaymentForm from '@/components/payment/PaymentForm';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Payment | SkyPay',
   description: 'Complete your booking payment securely',

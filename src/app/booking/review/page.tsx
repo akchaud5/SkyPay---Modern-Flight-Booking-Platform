@@ -1,6 +1,8 @@
 import BookingReview from '@/components/booking/BookingReview';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Review Booking | SkyPay',
   description: 'Review your flight booking details before payment',

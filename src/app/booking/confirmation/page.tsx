@@ -6,6 +6,8 @@ import { useBooking } from '@/context/BookingContext';
 import BookingConfirmation from '@/components/booking/BookingConfirmation';
 import Loader from '@/components/common/Loader';
 
+export const dynamic = 'force-dynamic';
+
 export default function ConfirmationPage() {
   const searchParams = useSearchParams();
   const bookingReference = searchParams.get('ref');
