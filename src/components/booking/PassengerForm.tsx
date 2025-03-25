@@ -33,24 +33,6 @@ export default function PassengerForm() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [totalPassengers, setTotalPassengers] = useState(1);
   
-  useEffect(() => {
-    // Redirect if no flight is selected
-    if (!outboundFlight) {
-      router.push('/flights');
-      return;
-    }
-    
-    // Set total passengers from the selected flight
-    if (outboundFlight) {
-      setTotalPassengers(outboundFlight.price.amount / (outboundFlight.price.amount / outboundFlight.price.amount));
-    }
-    
-    // Prefill email if user is authenticated
-    if (isAuthenticated && user) {
-      setFieldValue('email', user.email);
-    }
-  }, [outboundFlight, isAuthenticated, user, router, setFieldValue]);
-  
   const initialValues: PassengerFormValues = {
     email: isAuthenticated && user ? user.email : '',
     phone: '',
@@ -145,6 +127,39 @@ export default function PassengerForm() {
     }
   };
   
+  const { 
+    values, 
+    errors, 
+    touched, 
+    isSubmitting, 
+    handleChange, 
+    handleBlur, 
+    setFieldValue,
+    setTouched: setTouchedFields,
+  } = useForm({
+    initialValues,
+    validate,
+    onSubmit: handleSubmit,
+  });
+  
+  useEffect(() => {
+    // Redirect if no flight is selected
+    if (!outboundFlight) {
+      router.push('/flights');
+      return;
+    }
+    
+    // Set total passengers from the selected flight
+    if (outboundFlight) {
+      setTotalPassengers(outboundFlight.price.amount / (outboundFlight.price.amount / outboundFlight.price.amount));
+    }
+    
+    // Prefill email if user is authenticated
+    if (isAuthenticated && user) {
+      setFieldValue('email', user.email);
+    }
+  }, [outboundFlight, isAuthenticated, user, router, setFieldValue]);
+  
   const handleNext = async () => {
     // Validate the current passenger data
     const passengerErrors = validate(values).passengerInfo?.[currentIndex];
@@ -189,21 +204,6 @@ export default function PassengerForm() {
     // Submit the form
     handleSubmit(values);
   };
-  
-  const { 
-    values, 
-    errors, 
-    touched, 
-    isSubmitting, 
-    handleChange, 
-    handleBlur, 
-    setFieldValue,
-    setTouched: setTouchedFields,
-  } = useForm({
-    initialValues,
-    validate,
-    onSubmit: handleSubmit,
-  });
   
   const nationalityOptions = [
     { value: '', label: 'Select Nationality' },
