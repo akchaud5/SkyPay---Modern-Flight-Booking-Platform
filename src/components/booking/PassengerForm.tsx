@@ -49,7 +49,7 @@ export default function PassengerForm() {
     if (isAuthenticated && user) {
       setFieldValue('email', user.email);
     }
-  }, [outboundFlight, isAuthenticated, user, router]);
+  }, [outboundFlight, isAuthenticated, user, router, setFieldValue]);
   
   const initialValues: PassengerFormValues = {
     email: isAuthenticated && user ? user.email : '',

@@ -13,14 +13,6 @@ export default function PaymentForm() {
   const router = useRouter();
   const { outboundFlight, passengers, contactDetails, totalPrice, completeBooking } = useBooking();
   
-  // Redirect if no flight or passengers
-  if (!outboundFlight || passengers.length === 0 || !contactDetails) {
-    if (typeof window !== 'undefined') {
-      router.push('/flights');
-    }
-    return null;
-  }
-  
   const [isProcessing, setIsProcessing] = useState(false);
   const [cardDetails, setCardDetails] = useState({
     cardNumber: '',
@@ -29,6 +21,12 @@ export default function PaymentForm() {
     cvc: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  // Redirect if no flight or passengers
+  if (typeof window !== 'undefined' && (!outboundFlight || passengers.length === 0 || !contactDetails)) {
+    router.push('/flights');
+    return null;
+  }
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
