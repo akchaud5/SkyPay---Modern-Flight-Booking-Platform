@@ -46,8 +46,24 @@ export default function PassengerForm() {
     }),
   };
   
+  // Define interface for error structure
+  interface PassengerFormErrors {
+    email?: string;
+    phone?: string;
+    passengerInfo?: {
+      [index: number]: {
+        firstName?: string;
+        lastName?: string;
+        dateOfBirth?: string;
+        nationality?: string;
+        passportNumber?: string;
+        passportExpiry?: string;
+      };
+    };
+  }
+
   const validate = (values: PassengerFormValues) => {
-    const errors: Record<string, any> = {};
+    const errors: PassengerFormErrors = {};
     
     // Email validation
     if (!values.email) {
@@ -161,7 +177,8 @@ export default function PassengerForm() {
   
   const handleNext = async () => {
     // Validate the current passenger data
-    const passengerErrors = validate(values).passengerInfo?.[currentIndex];
+    const validationResult = validate(values);
+    const passengerErrors = (validationResult.passengerInfo as { [key: number]: { [key: string]: string } } | undefined)?.[currentIndex];
     
     if (passengerErrors) {
       // Mark all fields as touched for the current passenger
@@ -169,8 +186,8 @@ export default function PassengerForm() {
       Object.keys(values.passengerInfo[currentIndex]).forEach(field => {
         newTouched[`passengerInfo[${currentIndex}].${field}`] = true;
       });
-      // Can't directly access setTouched, use setFieldValue for now
-      // Each touched field will be set as we interact with inputs
+      // We now have setTouched exposed from the hook
+      setTouched(newTouched);
       return;
     }
     
@@ -197,8 +214,8 @@ export default function PassengerForm() {
         });
       });
       
-      // Can't directly access setTouched, use handleBlur for field validation instead
-      // Force validation by calling validate manually
+      // Use setTouched from the hook
+      setTouched(newTouched);
       return;
     }
     
@@ -223,7 +240,9 @@ export default function PassengerForm() {
   const getCurrentPassenger = () => values.passengerInfo[currentIndex] || initialValues.passengerInfo[0];
   
   const getPassengerError = (field: string) => {
-    return errors.passengerInfo?.[currentIndex]?.[field] || '';
+    // Type assertion to safely access errors
+    const passengerErrors = errors.passengerInfo as { [key: number]: { [key: string]: string } } | undefined;
+    return passengerErrors?.[currentIndex]?.[field] || '';
   };
   
   const isPassengerFieldTouched = (field: string) => {

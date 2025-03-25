@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 export interface FormErrors {
-  [key: string]: string;
+  [key: string]: string | number | boolean | FormErrors | { [key: string]: any } | undefined;
 }
 
 interface FormOptions<T> {
