@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { useForm } from '@/hooks/useForm';
+import { useForm, FormErrors } from '@/hooks/useForm';
 import Card from '../common/Card';
 import Input from '../common/Input';
 import Button from '../common/Button';
@@ -31,16 +31,8 @@ export default function RegisterForm() {
     agreeToTerms: false,
   };
   
-  interface RegisterFormErrors {
-    name?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-    agreeToTerms?: string;
-  }
-
   const validate = (values: RegisterFormValues) => {
-    const errors: RegisterFormErrors = {};
+    const errors: FormErrors = {};
     
     if (!values.name) {
       errors.name = 'Name is required';

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { useForm } from '@/hooks/useForm';
+import { useForm, FormErrors } from '@/hooks/useForm';
 import Card from '../common/Card';
 import Input from '../common/Input';
 import Button from '../common/Button';
@@ -27,14 +27,9 @@ export default function LoginForm() {
     rememberMe: false,
   };
   
-  interface LoginFormErrors {
-    email?: string;
-    password?: string;
-    rememberMe?: string;
-  }
 
   const validate = (values: LoginFormValues) => {
-    const errors: LoginFormErrors = {};
+    const errors: FormErrors = {};
     
     if (!values.email) {
       errors.email = 'Email is required';
