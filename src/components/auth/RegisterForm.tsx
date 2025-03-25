@@ -31,8 +31,16 @@ export default function RegisterForm() {
     agreeToTerms: false,
   };
   
+  interface RegisterFormErrors {
+    name?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+    agreeToTerms?: string;
+  }
+
   const validate = (values: RegisterFormValues) => {
-    const errors: Record<string, string> = {};
+    const errors: RegisterFormErrors = {};
     
     if (!values.name) {
       errors.name = 'Name is required';
@@ -111,7 +119,7 @@ export default function RegisterForm() {
           value={values.name}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.name && errors.name ? errors.name : ''}
+          error={touched.name && errors.name ? errors.name as string : ''}
           leftIcon={<FiUser />}
           autoComplete="name"
           required
@@ -125,7 +133,7 @@ export default function RegisterForm() {
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.email && errors.email ? errors.email : ''}
+          error={touched.email && errors.email ? errors.email as string : ''}
           leftIcon={<FiMail />}
           autoComplete="email"
           required
@@ -139,7 +147,7 @@ export default function RegisterForm() {
           value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.password && errors.password ? errors.password : ''}
+          error={touched.password && errors.password ? errors.password as string : ''}
           helperText="Must be at least 8 characters"
           leftIcon={<FiLock />}
           autoComplete="new-password"
@@ -155,7 +163,7 @@ export default function RegisterForm() {
             value={values.confirmPassword}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ''}
+            error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword as string : ''}
             leftIcon={<FiLock />}
             autoComplete="new-password"
             required
@@ -189,7 +197,7 @@ export default function RegisterForm() {
                 I agree to the <a href="/terms" className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Terms and Conditions</a> and <a href="/privacy" className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">Privacy Policy</a>
               </label>
               {touched.agreeToTerms && errors.agreeToTerms && (
-                <div className="form-error mt-1">{errors.agreeToTerms}</div>
+                <div className="form-error mt-1">{errors.agreeToTerms as string}</div>
               )}
             </div>
           </div>

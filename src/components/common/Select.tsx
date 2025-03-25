@@ -15,6 +15,7 @@ interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'siz
   helperText?: string;
   fullWidth?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  leftIcon?: React.ReactNode; // Add this to support leftIcon prop from other components
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>((
@@ -26,6 +27,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>((
     fullWidth = true,
     size = 'md',
     className = '',
+    leftIcon, // Add this to destructure the prop (and not pass it to DOM)
     ...props
   },
   ref

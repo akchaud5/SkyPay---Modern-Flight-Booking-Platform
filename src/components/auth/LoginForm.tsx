@@ -27,8 +27,14 @@ export default function LoginForm() {
     rememberMe: false,
   };
   
+  interface LoginFormErrors {
+    email?: string;
+    password?: string;
+    rememberMe?: string;
+  }
+
   const validate = (values: LoginFormValues) => {
-    const errors: Record<string, string> = {};
+    const errors: LoginFormErrors = {};
     
     if (!values.email) {
       errors.email = 'Email is required';
@@ -91,7 +97,7 @@ export default function LoginForm() {
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.email && errors.email ? errors.email : ''}
+          error={touched.email && errors.email ? errors.email as string : ''}
           leftIcon={<FiMail />}
           autoComplete="email"
           required
@@ -106,7 +112,7 @@ export default function LoginForm() {
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.password && errors.password ? errors.password : ''}
+            error={touched.password && errors.password ? errors.password as string : ''}
             leftIcon={<FiLock />}
             autoComplete="current-password"
             required
