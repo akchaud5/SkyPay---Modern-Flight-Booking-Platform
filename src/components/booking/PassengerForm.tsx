@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBooking } from '@/context/BookingContext';
 import { useAuth } from '@/context/AuthContext';
-import { useForm } from '@/hooks/useForm';
+import { useForm, FormErrors } from '@/hooks/useForm';
 import Card from '../common/Card';
 import Input from '../common/Input';
 import Select from '../common/Select';
@@ -46,24 +46,8 @@ export default function PassengerForm() {
     }),
   };
   
-  // Define interface for error structure
-  interface PassengerFormErrors {
-    email?: string;
-    phone?: string;
-    passengerInfo?: {
-      [index: number]: {
-        firstName?: string;
-        lastName?: string;
-        dateOfBirth?: string;
-        nationality?: string;
-        passportNumber?: string;
-        passportExpiry?: string;
-      };
-    };
-  }
-
   const validate = (values: PassengerFormValues) => {
-    const errors: PassengerFormErrors = {};
+    const errors: FormErrors = {};
     
     // Email validation
     if (!values.email) {
@@ -178,7 +162,10 @@ export default function PassengerForm() {
   const handleNext = async () => {
     // Validate the current passenger data
     const validationResult = validate(values);
-    const passengerErrors = (validationResult.passengerInfo as { [key: number]: { [key: string]: string } } | undefined)?.[currentIndex];
+    
+    // Get passenger errors using similar logic to getPassengerError
+    const nestedErrors = validationResult.passengerInfo as FormErrors | undefined;
+    const passengerErrors = nestedErrors ? nestedErrors[currentIndex] as FormErrors | undefined : undefined;
     
     if (passengerErrors) {
       // Mark all fields as touched for the current passenger
@@ -240,9 +227,14 @@ export default function PassengerForm() {
   const getCurrentPassenger = () => values.passengerInfo[currentIndex] || initialValues.passengerInfo[0];
   
   const getPassengerError = (field: string) => {
-    // Type assertion to safely access errors
-    const passengerErrors = errors.passengerInfo as { [key: number]: { [key: string]: string } } | undefined;
-    return passengerErrors?.[currentIndex]?.[field] || '';
+    // Access the nested errors structure safely
+    const nestedErrors = errors.passengerInfo as FormErrors | undefined;
+    if (!nestedErrors) return '';
+    
+    const indexErrors = nestedErrors[currentIndex] as FormErrors | undefined;
+    if (!indexErrors) return '';
+    
+    return indexErrors[field] as string || '';
   };
   
   const isPassengerFieldTouched = (field: string) => {
