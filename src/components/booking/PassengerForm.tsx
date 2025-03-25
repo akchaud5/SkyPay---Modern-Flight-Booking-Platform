@@ -259,7 +259,7 @@ export default function PassengerForm() {
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.email && errors.email ? errors.email : ''}
+            error={touched.email && errors.email ? errors.email as string : ''}
             leftIcon={<FiMail />}
             required
           />
@@ -272,7 +272,7 @@ export default function PassengerForm() {
             value={values.phone}
             onChange={handleChange}
             onBlur={handleBlur}
-            error={touched.phone && errors.phone ? errors.phone : ''}
+            error={touched.phone && errors.phone ? errors.phone as string : ''}
             helperText="Include country code (e.g., +1 for US)"
             leftIcon={<FiPhone />}
             required
