@@ -135,6 +135,7 @@ export default function PassengerForm() {
     handleChange, 
     handleBlur, 
     setFieldValue,
+    setTouched,
   } = useForm({
     initialValues,
     validate,
