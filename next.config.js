@@ -16,6 +16,12 @@ const nextConfig = {
       },
     ];
   },
+  // Make sure all pages are dynamically rendered at request time
+  experimental: {
+    serverActions: true,
+  },
+  // Disable static optimization for now
+  staticPageGenerationTimeout: 0,
 };
 
 module.exports = nextConfig;
