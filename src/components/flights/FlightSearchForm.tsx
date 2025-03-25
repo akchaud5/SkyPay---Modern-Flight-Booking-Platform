@@ -84,7 +84,7 @@ export default function FlightSearchForm({
   };
   
   const getErrorForField = (field: keyof FlightSearchValues) => {
-    return touched[field] && errors[field] ? errors[field] : '';
+    return touched[field] && errors[field] ? errors[field] as string : '';
   };
   
   return (
