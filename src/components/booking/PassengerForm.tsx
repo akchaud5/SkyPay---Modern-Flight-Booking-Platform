@@ -327,7 +327,11 @@ export default function PassengerForm() {
           <DatePicker
             label="Date of Birth"
             id={`passenger-${currentIndex}-dateOfBirth`}
-            value={getCurrentPassenger().dateOfBirth ? new Date(getCurrentPassenger().dateOfBirth) : null}
+            value={
+              getCurrentPassenger().dateOfBirth 
+              ? new Date(getCurrentPassenger().dateOfBirth as string) 
+              : null
+            }
             onChange={(date) => {
               if (date) {
                 setFieldValue(`passengerInfo[${currentIndex}].dateOfBirth`, date.toISOString());
@@ -368,7 +372,11 @@ export default function PassengerForm() {
           <DatePicker
             label="Passport Expiry Date"
             id={`passenger-${currentIndex}-passportExpiry`}
-            value={getCurrentPassenger().passportExpiry ? new Date(getCurrentPassenger().passportExpiry) : null}
+            value={
+              getCurrentPassenger().passportExpiry 
+              ? new Date(getCurrentPassenger().passportExpiry as string) 
+              : null
+            }
             onChange={(date) => {
               if (date) {
                 setFieldValue(`passengerInfo[${currentIndex}].passportExpiry`, date.toISOString());
