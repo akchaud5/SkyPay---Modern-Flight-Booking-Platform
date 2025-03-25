@@ -12,7 +12,7 @@ interface FlightSearchValues {
   from: string;
   to: string;
   departDate: string;
-  returnDate: string;
+  returnDate?: string;
   tripType: 'oneWay' | 'roundTrip';
   passengers: number;
   cabinClass: 'economy' | 'premium' | 'business' | 'first';
@@ -142,7 +142,7 @@ export default function FlightSearchForm({
         <DatePicker
           label="Departure Date"
           id="departDate"
-          value={values.departDate ? new Date(values.departDate) : null}
+          value={values.departDate ? new Date(values.departDate as string) : null}
           onChange={handleDepartDateChange}
           minDate={new Date()}
           error={getErrorForField('departDate')}
@@ -153,9 +153,9 @@ export default function FlightSearchForm({
           <DatePicker
             label="Return Date"
             id="returnDate"
-            value={values.returnDate ? new Date(values.returnDate) : null}
+            value={values.returnDate ? new Date(values.returnDate as string) : null}
             onChange={handleReturnDateChange}
-            minDate={values.departDate ? new Date(values.departDate) : new Date()}
+            minDate={values.departDate ? new Date(values.departDate as string) : new Date()}
             error={getErrorForField('returnDate')}
             disabled={!values.departDate}
             required={values.tripType === 'roundTrip'}
