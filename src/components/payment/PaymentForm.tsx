@@ -204,7 +204,7 @@ export default function PaymentForm() {
               size="lg"
               isLoading={isProcessing}
             >
-              Pay ${totalPrice.toLocaleString()}
+              Pay ${totalPrice!.toLocaleString()}
             </Button>
           </form>
         </Card>
@@ -219,7 +219,7 @@ export default function PaymentForm() {
           <div className="space-y-3">
             <div className="flex justify-between text-secondary-700 dark:text-secondary-300">
               <div>Flight</div>
-              <div>${outboundFlight.price.amount.toLocaleString()}</div>
+              <div>${outboundFlight!.price.amount.toLocaleString()}</div>
             </div>
             
             <div className="flex justify-between text-secondary-700 dark:text-secondary-300">
@@ -235,7 +235,7 @@ export default function PaymentForm() {
             <div className="border-t border-secondary-200 dark:border-secondary-700 pt-3 mt-3">
               <div className="flex justify-between font-bold text-lg text-secondary-900 dark:text-white">
                 <div>Total</div>
-                <div>${totalPrice.toLocaleString()}</div>
+                <div>${totalPrice!.toLocaleString()}</div>
               </div>
               <div className="text-xs text-secondary-500 dark:text-secondary-400 mt-1 text-right">
                 All prices are in USD
